@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
+import sys
+import os
 
 # basic settings
 AUTHOR = u'zxkletters'
@@ -38,6 +40,6 @@ DEFAULT_PAGINATION = 10
 #RELATIVE_URLS = True
 
 DEFAULT_METADATA = (('Author','zxkletters'),)
-THEME = "/home/pi/notcare_site/default_themes"
+THEME = "%s/default_themes" % (os.path.split(os.path.realpath(__file__))[0])
 
 GITHUB_URL = "https://github.com/zxkletters"
