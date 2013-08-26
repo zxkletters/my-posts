@@ -1,8 +1,8 @@
-###All my posts, those who are created by Markdown editor.
-###You can use [pelican](https://github.com/getpelican/pelican) to generate a static site from the posts.
+## All my posts, those who are created by Markdown editor.
+## You can use [pelican](https://github.com/getpelican/pelican) to generate a static site from the posts.
 -------------
 
-###install
+### install
 Assume you have install [pelican](https://github.com/getpelican/pelican).
 first:
 
