@@ -2,6 +2,7 @@ Title: 通过命令行快速浏览你的文件系统
 Date: 2013-08-29 11:07  
 Category: tech  
 Slug: quickly-navigate-your-filesystem  
+Author: zxkletters
 
 
 原文:[Quickly navigate your filesystem from the command-line](http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html)
