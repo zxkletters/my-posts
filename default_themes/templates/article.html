@@ -16,9 +16,10 @@
     </div><!-- /.entry-content -->
     {% if SITEURL and article.status != "draft" %}
     <div class="comments">
-      <h2>Comments !</h2>
+    <div style="overflow: hidden;padding: 20px 20px;width: 760px;"></div>
 <!-- Duoshuo Comment BEGIN -->
-          <div class="ds-thread" data-thread-key="{{ article.url }}" data-url="{{ SITEURL }}/{{ article.url }}" data-title="{{ article.title }}"></div>
+<div class="ds-thread" data-thread-key="{{ article.url }}" data-url="{{ SITEURL }}/{{ article.url }}" 
+  data-title="{{ article.title }}" data-author-key="xiaokezhang" data-form-position="top" data-order="desc"></div>
           <script type="text/javascript">
               var duoshuoQuery = {short_name:"notcare"};
               (function() {
