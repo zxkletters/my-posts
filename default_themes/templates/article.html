@@ -14,9 +14,24 @@
       {% include 'article_infos.html' %}
       {{ article.content }}
     </div><!-- /.entry-content -->
-    {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
+    {% if SITEURL and article.status != "draft" %}
     <div class="comments">
       <h2>Comments !</h2>
+<!-- Duoshuo Comment BEGIN -->
+          <div class="ds-thread" data-thread-key="{{ article.url }}" data-url="{{ SITEURL }}/{{ article.url }}" data-title="{{ article.title }}"></div>
+          <script type="text/javascript">
+              var duoshuoQuery = {short_name:"notcare"};
+              (function() {
+                   var ds = document.createElement('script');
+                   ds.type = 'text/javascript';ds.async = true;
+                   ds.src = 'http://static.duoshuo.com/embed.js';
+                   ds.charset = 'UTF-8';
+                   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+                 }
+              )();
+          </script>
+<!-- Duoshuo Comment END -->
+<!--
       <div id="disqus_thread"></div>
       <script type="text/javascript">
         var disqus_identifier = "{{ article.url }}";
@@ -27,6 +42,7 @@
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
         })();
       </script>
+      -->
     </div>
     {% endif %}
 
