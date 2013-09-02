@@ -22,7 +22,7 @@ you alse can try:
     or
     make publish # generate static files into output folder
     
-the differences of commands: *make html* , *make github* and *make publish* are:  
-*make html* use pelicanconf.py as settings
-*make github* use githubconf.py as settings
-*make publish* use publishconf.py as settings
+the differences of commands: *make html* , *make github* and *make publish* are:   
+*make html* use pelicanconf.py as settings  
+*make github* use githubconf.py as settings  
+*make publish* use publishconf.py as settings  
