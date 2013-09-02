@@ -4,10 +4,11 @@ PELICANOPTS=
 
 BASEDIR=$(CURDIR)
 INPUTDIR=$(BASEDIR)/content
-#OUTPUTDIR=$(BASEDIR)/output
-OUTPUTDIR=$(BASEDIR)/compiled
+PUBLISH_OUTPUT_DIR=$(BASEDIR)/output
+GITHUB_OUTPUT_DIR=$(BASEDIR)/gh_pages
 CONFFILE=$(BASEDIR)/pelicanconf.py
 PUBLISHCONF=$(BASEDIR)/publishconf.py
+GITHUBCONF=$(BASEDIR)/githubconf.py
 
 FTP_HOST=localhost
 FTP_USER=anonymous
@@ -42,25 +43,28 @@ help:
 	@echo '                                                                       '
 
 
-#html: clean $(OUTPUTDIR)/index.html
+#html: clean $(GITHUB_OUTPUT_DIR)/index.html
 
 html: 
-	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	$(PELICAN) $(INPUTDIR) -o $(GITHUB_OUTPUT_DIR) -s $(CONFFILE) $(PELICANOPTS)
 
-#$(OUTPUTDIR)/%.html:
-#	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+github: 
+	$(PELICAN) $(INPUTDIR) -o $(GITHUB_OUTPUT_DIR) -s $(GITHUBCONF) $(PELICANOPTS)
+
+#$(GITHUB_OUTPUT_DIR)/%.html:
+#	$(PELICAN) $(INPUTDIR) -o $(GITHUB_OUTPUT_DIR) -s $(CONFFILE) $(PELICANOPTS)
 
 clean:
-	[ ! -d $(OUTPUTDIR) ] || find $(OUTPUTDIR) -mindepth 1 -print
+	[ ! -d $(GITHUB_OUTPUT_DIR) ] || find $(GITHUB_OUTPUT_DIR) -mindepth 1 -print
 
 #regenerate: clean
-#	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+#	$(PELICAN) -r $(INPUTDIR) -o $(GITHUB_OUTPUT_DIR) -s $(CONFFILE) $(PELICANOPTS)
 
 regenerate: 
-	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	$(PELICAN) -r $(INPUTDIR) -o $(GITHUB_OUTPUT_DIR) -s $(CONFFILE) $(PELICANOPTS)
 
 serve:
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server
+	cd $(GITHUB_OUTPUT_DIR) && $(PY) -m pelican.server
 
 devserver:
 	$(BASEDIR)/develop_server.sh restart
@@ -71,25 +75,25 @@ stopserver:
 	@echo 'Stopped Pelican and SimpleHTTPServer processes running in background.'
 
 publish:
-	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
+	$(PELICAN) $(INPUTDIR) -o $(PUBLISH_OUTPUT_DIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 
 ssh_upload: publish
-	scp -P $(SSH_PORT) -r $(OUTPUTDIR)/* $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)
+	scp -P $(SSH_PORT) -r $(GITHUB_OUTPUT_DIR)/* $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)
 
 rsync_upload: publish
-	rsync -e "ssh -p $(SSH_PORT)" -P -rvz --delete $(OUTPUTDIR)/ $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR) --cvs-exclude
+	rsync -e "ssh -p $(SSH_PORT)" -P -rvz --delete $(GITHUB_OUTPUT_DIR)/ $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR) --cvs-exclude
 
 dropbox_upload: publish
-	cp -r $(OUTPUTDIR)/* $(DROPBOX_DIR)
+	cp -r $(GITHUB_OUTPUT_DIR)/* $(DROPBOX_DIR)
 
 ftp_upload: publish
-	lftp ftp://$(FTP_USER)@$(FTP_HOST) -e "mirror -R $(OUTPUTDIR) $(FTP_TARGET_DIR) ; quit"
+	lftp ftp://$(FTP_USER)@$(FTP_HOST) -e "mirror -R $(GITHUB_OUTPUT_DIR) $(FTP_TARGET_DIR) ; quit"
 
 s3_upload: publish
-	s3cmd sync $(OUTPUTDIR)/ s3://$(S3_BUCKET) --acl-public --delete-removed
+	s3cmd sync $(GITHUB_OUTPUT_DIR)/ s3://$(S3_BUCKET) --acl-public --delete-removed
 
-github: publish
-	ghp-import $(OUTPUTDIR)
-	git push origin gh-pages
+#github: publish
+#	ghp-import $(GITHUB_OUTPUT_DIR)
+#	git push origin gh-pages
 
 .PHONY: html help clean regenerate serve devserver publish ssh_upload rsync_upload dropbox_upload ftp_upload s3_upload github

@@ -1,2 +1,4 @@
 compiled/
+gh_pages/
+output/
 *.pyc
