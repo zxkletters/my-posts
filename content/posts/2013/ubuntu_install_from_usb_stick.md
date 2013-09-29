@@ -3,6 +3,7 @@ Date: 2013-08-27 10:50
 Author: zxkletters  
 Slug: install_ubuntu_from_usb_stick  
 Category: tech  
+Tags: ubuntu
 
 今天通过usb安装ubuntu系统时遇到的小问题，记录下。
 
