@@ -1,4 +1,5 @@
 Title: 修改pelican默认的theme
+Author: zxkletters
 Date: 2013-09-04 20:48
 Slug: modify_pelican's_default_theme
 
