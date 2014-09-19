@@ -1,4 +1,4 @@
-### All my posts, those who are created by Markdown editor.
+### All my posts created by Markdown editor.
 ### You can use [pelican](https://github.com/getpelican/pelican) to generate a static site from the posts.
 -------------
 
